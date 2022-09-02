@@ -165,25 +165,25 @@ Type: `string`
 
 #### <a name="input_name"></a> [name](#input\_name)
 
-Description: Name to give the to the AppProject and Application
+Description: Name to give the to the AppProject and Application.
 
 Type: `string`
 
 #### <a name="input_source_repo"></a> [source\_repo](#input\_source\_repo)
 
-Description: Repository where the application chart is located
+Description: Repository where the application's chart is located.
 
 Type: `string`
 
 #### <a name="input_source_repo_path"></a> [source\_repo\_path](#input\_source\_repo\_path)
 
-Description: Path for the application charts in the source repository
+Description: Path for the application's chart in the source repository.
 
 Type: `string`
 
 #### <a name="input_source_target_revision"></a> [source\_target\_revision](#input\_source\_target\_revision)
 
-Description: Git target revision for the application
+Description: Git target revision for the application.
 
 Type: `string`
 
@@ -201,7 +201,7 @@ Default: `{}`
 
 #### <a name="input_destination_namespace"></a> [destination\_namespace](#input\_destination\_namespace)
 
-Description: Namespace where the application will be deployed
+Description: Namespace where the application will be deployed. By default it is the same as the application's name defined by `var.name`. We use a ternary operator to conditionally define the Namespace only if it is defined on the module's instantiation: `namespace = var.destination_namespace == null ? var.name : var.destination_namespace`.
 
 Type: `string`
 
@@ -217,7 +217,7 @@ Default: `[]`
 
 #### <a name="input_project_cluster_resource_whitelist"></a> [project\_cluster\_resource\_whitelist](#input\_project\_cluster\_resource\_whitelist)
 
-Description: Cluster-scoped resources allowed to be managed by the project applications
+Description: Cluster-scoped resources allowed to be deployed in the Argo CD AppProject created by the module. The **`group`** must be a Kubernetes API group such as `core` or `apps` and the **`kind`** must be a Kubernetes Kinds/Object Schemas such as `Namespace` or `ClusterRole` (note that only resources like these ones are compatible with this setting, the other resources are only Namespace-scoped). You can see the API Groups [here](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.25/#-strong-api-groups-strong-).
 
 Type:
 
@@ -241,7 +241,7 @@ Default:
 
 #### <a name="input_project_namespace_resource_whitelist"></a> [project\_namespace\_resource\_whitelist](#input\_project\_namespace\_resource\_whitelist)
 
-Description: Namespaced-scoped resources allowed to be managed by the project applications
+Description: Namespace-scoped resources allowed to be deployed in the Argo CD AppProject created by the module. The **`group`** must be a Kubernetes API group such as `core` or `apps` and the **`kind`** must be a Kubernetes Kinds/Object Schemas such as `Pod`, `ConfigMap`, `DaemonSet`, `Deployment`, etc. You can see the API Groups [here](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.25/#-strong-api-groups-strong-).
 
 Type:
 
