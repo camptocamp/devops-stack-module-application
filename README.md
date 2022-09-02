@@ -55,7 +55,7 @@ module "module_name" {
   source_repo_path = "path/to/chart"
   source_target_revision = "branch"
 
-  destination_namespace = "namespace" # Optional
+  destination_namespace = "namespace"
 
   project_cluster_resource_whitelist = [ 
     {
