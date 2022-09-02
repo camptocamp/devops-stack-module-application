@@ -23,6 +23,33 @@ application_folder
 
 By default, the created AppProject can only create an Application within a Namespace of the same name or within a Namespace declared on the module declaration. Besides that, the AppProject has the permission to create any kind of Kubernetes resources inside the destination cluster, but you can restrict the allowed resources if you need to.
 
+## Table of contents
+
+- [devops-stack-module-application](#devops-stack-module-application)
+  - [Table of contents](#table-of-contents)
+  - [Usage](#usage)
+  - [Technical Reference](#technical-reference)
+    - [Dependencies](#dependencies)
+      - [`module.argocd`](#moduleargocd)
+    - [Requirements](#requirements)
+    - [Providers](#providers)
+    - [Modules](#modules)
+    - [Resources](#resources)
+    - [Required Inputs](#required-inputs)
+      - [<a name="input_argocd_namespace"></a> argocd\_namespace](#-argocd_namespace)
+      - [<a name="input_name"></a> name](#-name)
+      - [<a name="input_source_repo"></a> source\_repo](#-source_repo)
+      - [<a name="input_source_repo_path"></a> source\_repo\_path](#-source_repo_path)
+      - [<a name="input_source_target_revision"></a> source\_target\_revision](#-source_target_revision)
+    - [Optional Inputs](#optional-inputs)
+      - [<a name="input_dependency_ids"></a> dependency\_ids](#-dependency_ids)
+      - [<a name="input_destination_namespace"></a> destination\_namespace](#-destination_namespace)
+      - [<a name="input_helm_values"></a> helm\_values](#-helm_values)
+      - [<a name="input_project_cluster_resource_whitelist"></a> project\_cluster\_resource\_whitelist](#-project_cluster_resource_whitelist)
+      - [<a name="input_project_namespace_resource_whitelist"></a> project\_namespace\_resource\_whitelist](#-project_namespace_resource_whitelist)
+    - [Outputs](#outputs)
+      - [<a name="output_id"></a> id](#-id)
+
 ## Usage
 
 This module can be declared by adding the following block on your Terraform configuration:
@@ -121,7 +148,7 @@ module "module_name" {
 
 ### Dependencies
 
-#### `depends_on = [module.argocd]`
+#### `module.argocd`
 
 As this is an application, it needs to be deployed after the deployment of Argo CD and consequently this module needs to have this explicit dependency.
 
