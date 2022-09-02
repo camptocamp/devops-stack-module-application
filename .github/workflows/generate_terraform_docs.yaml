@@ -1,0 +1,27 @@
+# GitHub Actions workflow to automatically generate documentation from the .tf files of the module
+# The generated documentation will be injected between <!-- BEGIN_TF_DOCS --> and <!-- END_TF_DOCS --> on the README.md
+name: Generate terraform docs
+
+on:
+  - pull_request
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
+
+    - name: Render terraform docs inside the README.md and push changes back to PR branch
+      uses: terraform-docs/gh-actions@v1.0.0
+      with:
+        working-dir: .
+        indention: 3
+        output-file: README.md
+        output-method: inject
+        git-push: "true"
+        git-commit-message: "terraform-docs: generate docs and append to README.md"
