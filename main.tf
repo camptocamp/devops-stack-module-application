@@ -10,16 +10,27 @@ resource "argocd_project" "this" {
 
     destination {
       name      = "in-cluster"
-      namespace = var.destination_namespace == "" ? var.name : var.destination_namespace
+      namespace = var.destination_namespace == null ? var.name : var.destination_namespace
     }
 
     orphaned_resources {
       warn = true
     }
 
-    cluster_resource_whitelist {
-      group = "*"
-      kind  = "*"
+    dynamic cluster_resource_whitelist {
+      for_each = var.project_cluster_resource_whitelist
+      content {
+        group = cluster_resource_whitelist.value["group"]
+        kind = cluster_resource_whitelist.value["kind"]
+      }
+    }
+
+    dynamic namespace_resource_whitelist {
+      for_each = var.project_namespace_resource_whitelist
+      content {
+        group = namespace_resource_whitelist.value["group"]
+        kind = namespace_resource_whitelist.value["kind"]
+      }
     }
   }
 }
@@ -55,7 +66,7 @@ resource "argocd_application" "this" {
 
     destination {
       name      = "in-cluster"
-      namespace = var.destination_namespace == "" ? var.name : var.destination_namespace
+      namespace = var.destination_namespace == null ? var.name : var.destination_namespace
     }
 
     sync_policy {

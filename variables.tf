@@ -45,7 +45,33 @@ variable "source_target_revision" {
 variable "destination_namespace" {
   description = "Namespace where the application will be deployed"
   type        = string
-  default     = "null"
+  default     = null
 }
 
-# TODO Add variables to customize the cluster whitelist and namespace blacklist
+variable "project_cluster_resource_whitelist" {
+  description = "Cluster-scoped resources allowed to be managed by the project applications"
+  type = list(object({
+    group = string
+    kind = string
+  }))
+  default = [
+    {
+      group = "*" # Kubernetes API groups such as /api/v1, /certificates.k8s.io/v1, /authentication.k8s.io/v1, etc.
+      kind  = "*" # Kubernetes Kinds/Object Schemas such as Pod, ConfigMap, DaemonSet, etc.
+    }
+  ]
+}
+
+variable "project_namespace_resource_whitelist" {
+  description = "Namespaced-scoped resources allowed to be managed by the project applications"
+  type = list(object({
+    group = string
+    kind = string
+  }))
+  default = [
+    {
+      group = "*" # Kubernetes API groups such as /api/v1, /certificates.k8s.io/v1, /authentication.k8s.io/v1, etc.
+      kind  = "*" # Kubernetes Kinds/Object Schemas such as Pod, ConfigMap, DaemonSet, etc.
+    }
+  ]
+}
