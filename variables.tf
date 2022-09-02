@@ -23,7 +23,7 @@ variable "dependency_ids" {
 #######################
 
 variable "name" {
-  description = "Argo CD Project and Application name"
+  description = "Name to give the to the AppProject and Application"
   type        = string
 }
 
