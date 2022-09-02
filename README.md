@@ -10,8 +10,8 @@ Inside that folder, the module expects an Helm chart with a folder structure sim
 application_folder
   ├── Chart.yaml
   ├── charts
-  │   ├── dependecy1.tar.gz
-  │   └── dependecy2.tar.gz
+  │   ├── dependency1.tar.gz
+  │   └── dependency2.tar.gz
   ├── secrets.yaml
   ├── templates
   │   ├── template1.yaml
