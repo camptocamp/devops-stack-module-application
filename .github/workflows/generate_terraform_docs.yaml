@@ -21,6 +21,7 @@ jobs:
       with:
         working-dir: .
         indention: 3
+        output-format: "markdown document"
         output-file: README.md
         output-method: inject
         git-push: "true"
