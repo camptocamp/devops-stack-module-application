@@ -133,11 +133,13 @@ No requirements.
 
 ### Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_argocd"></a> [argocd](#provider\_argocd) | n/a |
-| <a name="provider_null"></a> [null](#provider\_null) | n/a |
-| <a name="provider_utils"></a> [utils](#provider\_utils) | n/a |
+The following providers are used by this module:
+
+- <a name="provider_argocd"></a> [argocd](#provider\_argocd)
+
+- <a name="provider_null"></a> [null](#provider\_null)
+
+- <a name="provider_utils"></a> [utils](#provider\_utils)
 
 ### Modules
 
@@ -145,31 +147,128 @@ No modules.
 
 ### Resources
 
-| Name | Type |
-|------|------|
-| [argocd_application.this](https://registry.terraform.io/providers/oboukili/argocd/latest/docs/resources/application) | resource |
-| [argocd_project.this](https://registry.terraform.io/providers/oboukili/argocd/latest/docs/resources/project) | resource |
-| [null_resource.this](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
-| [utils_deep_merge_yaml.values](https://registry.terraform.io/providers/cloudposse/utils/latest/docs/data-sources/deep_merge_yaml) | data source |
+The following resources are used by this module:
 
-### Inputs
+- [argocd_application.this](https://registry.terraform.io/providers/oboukili/argocd/latest/docs/resources/application) (resource)
+- [argocd_project.this](https://registry.terraform.io/providers/oboukili/argocd/latest/docs/resources/project) (resource)
+- [null_resource.this](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) (resource)
+- [utils_deep_merge_yaml.values](https://registry.terraform.io/providers/cloudposse/utils/latest/docs/data-sources/deep_merge_yaml) (data source)
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_argocd_namespace"></a> [argocd\_namespace](#input\_argocd\_namespace) | n/a | `string` | n/a | yes |
-| <a name="input_dependency_ids"></a> [dependency\_ids](#input\_dependency\_ids) | n/a | `map(string)` | `{}` | no |
-| <a name="input_destination_namespace"></a> [destination\_namespace](#input\_destination\_namespace) | Namespace where the application will be deployed | `string` | `null` | no |
-| <a name="input_helm_values"></a> [helm\_values](#input\_helm\_values) | Helm values, passed as a list of HCL structures. | `any` | `[]` | no |
-| <a name="input_name"></a> [name](#input\_name) | Name to give the to the AppProject and Application | `string` | n/a | yes |
-| <a name="input_project_cluster_resource_whitelist"></a> [project\_cluster\_resource\_whitelist](#input\_project\_cluster\_resource\_whitelist) | Cluster-scoped resources allowed to be managed by the project applications | <pre>list(object({<br>    group = string<br>    kind = string<br>  }))</pre> | <pre>[<br>  {<br>    "group": "*",<br>    "kind": "*"<br>  }<br>]</pre> | no |
-| <a name="input_project_namespace_resource_whitelist"></a> [project\_namespace\_resource\_whitelist](#input\_project\_namespace\_resource\_whitelist) | Namespaced-scoped resources allowed to be managed by the project applications | <pre>list(object({<br>    group = string<br>    kind = string<br>  }))</pre> | <pre>[<br>  {<br>    "group": "*",<br>    "kind": "*"<br>  }<br>]</pre> | no |
-| <a name="input_source_repo"></a> [source\_repo](#input\_source\_repo) | Repository where the application chart is located | `string` | n/a | yes |
-| <a name="input_source_repo_path"></a> [source\_repo\_path](#input\_source\_repo\_path) | Path for the application charts in the source repository | `string` | n/a | yes |
-| <a name="input_source_target_revision"></a> [source\_target\_revision](#input\_source\_target\_revision) | Git target revision for the application | `string` | n/a | yes |
+### Required Inputs
+
+The following input variables are required:
+
+#### <a name="input_argocd_namespace"></a> [argocd\_namespace](#input\_argocd\_namespace)
+
+Description: n/a
+
+Type: `string`
+
+#### <a name="input_name"></a> [name](#input\_name)
+
+Description: Name to give the to the AppProject and Application
+
+Type: `string`
+
+#### <a name="input_source_repo"></a> [source\_repo](#input\_source\_repo)
+
+Description: Repository where the application chart is located
+
+Type: `string`
+
+#### <a name="input_source_repo_path"></a> [source\_repo\_path](#input\_source\_repo\_path)
+
+Description: Path for the application charts in the source repository
+
+Type: `string`
+
+#### <a name="input_source_target_revision"></a> [source\_target\_revision](#input\_source\_target\_revision)
+
+Description: Git target revision for the application
+
+Type: `string`
+
+### Optional Inputs
+
+The following input variables are optional (have default values):
+
+#### <a name="input_dependency_ids"></a> [dependency\_ids](#input\_dependency\_ids)
+
+Description: n/a
+
+Type: `map(string)`
+
+Default: `{}`
+
+#### <a name="input_destination_namespace"></a> [destination\_namespace](#input\_destination\_namespace)
+
+Description: Namespace where the application will be deployed
+
+Type: `string`
+
+Default: `null`
+
+#### <a name="input_helm_values"></a> [helm\_values](#input\_helm\_values)
+
+Description: Helm values, passed as a list of HCL structures.
+
+Type: `any`
+
+Default: `[]`
+
+#### <a name="input_project_cluster_resource_whitelist"></a> [project\_cluster\_resource\_whitelist](#input\_project\_cluster\_resource\_whitelist)
+
+Description: Cluster-scoped resources allowed to be managed by the project applications
+
+Type:
+
+```hcl
+list(object({
+    group = string
+    kind = string
+  }))
+```
+
+Default:
+
+```json
+[
+  {
+    "group": "*",
+    "kind": "*"
+  }
+]
+```
+
+#### <a name="input_project_namespace_resource_whitelist"></a> [project\_namespace\_resource\_whitelist](#input\_project\_namespace\_resource\_whitelist)
+
+Description: Namespaced-scoped resources allowed to be managed by the project applications
+
+Type:
+
+```hcl
+list(object({
+    group = string
+    kind = string
+  }))
+```
+
+Default:
+
+```json
+[
+  {
+    "group": "*",
+    "kind": "*"
+  }
+]
+```
 
 ### Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_id"></a> [id](#output\_id) | n/a |
+The following outputs are exported:
+
+#### <a name="output_id"></a> [id](#output\_id)
+
+Description: n/a
 <!-- END_TF_DOCS -->
