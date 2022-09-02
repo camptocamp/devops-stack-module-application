@@ -2,7 +2,7 @@
 
 A [DevOps Stack](https://devops-stack.io) module to deploy a simple Application in Argo CD.
 
-The module creates an Argo CD AppProject using the name given on instanciation and then creates an Argo CD Application using the chart that is inside the path for the Git repository that is declared.
+The module creates an Argo CD AppProject using the name given on declaration and then creates an Argo CD Application using the chart that is inside the path for the Git repository that is declared.
 
 Inside that folder, the module expects an Helm chart with a folder structure similar to the following (as is standard practice):
 
@@ -21,11 +21,11 @@ application_folder
   └── values.yaml
 ```
 
-By default, the created AppProject can only create an Application within a Namespace of the same name or within a Namespace declared on instanciation. Besides that, the AppProject has the permission to create any kind of Kubernetes resources inside the destination cluster, but you can restrict the allowed resources if you need to.
+By default, the created AppProject can only create an Application within a Namespace of the same name or within a Namespace declared on the module declaration. Besides that, the AppProject has the permission to create any kind of Kubernetes resources inside the destination cluster, but you can restrict the allowed resources if you need to.
 
 ## Usage
 
-This module can be instanciated by adding the following block on your Terraform configuration:
+This module can be declared by adding the following block on your Terraform configuration:
 
 ```hcl
 module "module_name" {
@@ -42,7 +42,7 @@ module "module_name" {
 }
 ```
 
-A more complex instanciation, that defines the Namespace and also the AppProject allowed resources, would look like this:
+A more complex declaration, that defines the Namespace and also the AppProject allowed resources, would look like this:
 
 ```hcl
 module "module_name" {
