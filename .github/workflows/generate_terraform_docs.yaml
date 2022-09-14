@@ -25,5 +25,6 @@ jobs:
         output-format: "asciidoc document"
         output-file: tf_docs.adoc
         output-method: replace
+        template: "" # This is to not add the template lines <!-- BEGIN_TF_DOCS -->\n<!-- END_TF_DOCS --> to the output file
         git-push: "true"
         git-commit-message: "terraform-docs: generate docs and write to tf_docs.adoc"
