@@ -280,7 +280,6 @@ Description: n/a
 .Show tables
 [%collapsible]
 ====
-
 // BEGIN_TF_TABLES
 = Requirements
 
