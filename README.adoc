@@ -122,10 +122,28 @@ module "module_name" {
 
 == Technical Reference
 
+.Text Format
+[%collapsible%open]
+====
 === Dependencies
 
 ==== `module.argocd`
 
 As this is an application, it needs to be deployed after the deployment of Argo CD and consequently this module needs to have this explicit dependency.
 
-include::tf_docs.adoc[leveloffset=+2]
+// BEGIN_TF_DOCS
+// END_TF_DOCS
+====
+
+.Table Format
+[%collapsible]
+====
+=== Dependencies
+
+==== `module.argocd`
+
+As this is an application, it needs to be deployed after the deployment of Argo CD and consequently this module needs to have this explicit dependency.
+
+// BEGIN_TF_TABLES
+// END_TF_TABLES
+====

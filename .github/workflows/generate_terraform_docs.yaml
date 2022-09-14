@@ -1,6 +1,6 @@
 ---
 # GitHub Actions workflow to automatically generate documentation from the .tf files of the module
-# The generated documentation will be written to a tf_docs*.adoc file that is then included on the main README.adoc
+# The generated documentation will be injected between AsciiDoc comments on the README.adoc
 
 name: Generate Terraform documentation
 
@@ -17,14 +17,34 @@ jobs:
       with:
         ref: ${{ github.event.pull_request.head.ref }}
 
-    - name: Generate Terraform documentation inside the tf_docs.adoc and push changes back to PR branch
+    - name: Generate Terraform docs inside the README.adoc and push changes back to PR branch
       uses: terraform-docs/gh-actions@v1.0.0
       with:
         working-dir: .
-        indention: 1
+        indention: 3
         output-format: "asciidoc document"
-        output-file: tf_docs.adoc
-        output-method: replace
-        template: "" # This is to not add the template lines <!-- BEGIN_TF_DOCS -->\n<!-- END_TF_DOCS --> to the output file
+        output-file: README.adoc
+        output-method: inject
+        # Define template compatible with AsciiDoc
+        template: -|
+          // BEGIN_TF_DOCS
+          {{ .Content }}
+          // END_TF_DOCS
         git-push: "true"
-        git-commit-message: "terraform-docs: generate docs and write to tf_docs.adoc"
+        git-commit-message: "terraform-docs: generate docs and write to README.adoc"
+
+    - name: Generate Terraform tables inside the README.adoc and push changes back to PR branch
+      uses: terraform-docs/gh-actions@v1.0.0
+      with:
+        working-dir: .
+        indention: 3
+        output-format: "asciidoc table"
+        output-file: README.adoc
+        output-method: inject
+        # Define template compatible with AsciiDoc
+        template: -|
+          // BEGIN_TF_TABLES
+          {{ .Content }}
+          // END_TF_TABLES
+        git-push: "true"
+        git-commit-message: "terraform-docs: generate tables and write to README.adoc"
