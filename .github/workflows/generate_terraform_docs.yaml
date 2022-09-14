@@ -1,5 +1,7 @@
+---
 # GitHub Actions workflow to automatically generate documentation from the .tf files of the module
 # The generated documentation will be injected between <!-- BEGIN_TF_DOCS --> and <!-- END_TF_DOCS --> on the README.md
+
 name: Generate Terraform documentation
 
 on:
