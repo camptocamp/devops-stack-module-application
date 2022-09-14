@@ -26,10 +26,7 @@ jobs:
         output-file: README.adoc
         output-method: inject
         # Define template compatible with AsciiDoc
-        template: |
-          // BEGIN_TF_DOCS
-          {{ .Content }}
-          // END_TF_DOCS
+        template: "// BEGIN_TF_DOCS\n{{ .Content }}\n// END_TF_DOCS"
         git-push: "true"
         git-commit-message: "terraform-docs: generate docs and write to README.adoc"
 
@@ -42,9 +39,6 @@ jobs:
         output-file: README.adoc
         output-method: inject
         # Define template compatible with AsciiDoc
-        template: |
-          // BEGIN_TF_TABLES
-          {{ .Content }}
-          // END_TF_TABLES
+        template: "// BEGIN_TF_TABLES\n{{ .Content }}\n// END_TF_TABLES"
         git-push: "true"
         git-commit-message: "terraform-docs: generate tables and write to README.adoc"
