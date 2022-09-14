@@ -22,7 +22,6 @@ jobs:
       with:
         working-dir: .
         indention: 1
-        recursive: true
         output-format: "asciidoc document"
         output-file: tf_docs.adoc
         output-method: replace
