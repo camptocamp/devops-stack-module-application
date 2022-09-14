@@ -26,7 +26,7 @@ jobs:
         output-file: README.adoc
         output-method: inject
         # Define template compatible with AsciiDoc
-        template: -|
+        template: |
           // BEGIN_TF_DOCS
           {{ .Content }}
           // END_TF_DOCS
@@ -42,7 +42,7 @@ jobs:
         output-file: README.adoc
         output-method: inject
         # Define template compatible with AsciiDoc
-        template: -|
+        template: |
           // BEGIN_TF_TABLES
           {{ .Content }}
           // END_TF_TABLES
