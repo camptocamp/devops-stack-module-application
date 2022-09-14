@@ -1,3 +1,4 @@
 ---
 name: "application"
 version: true
+start_page: README.adoc
