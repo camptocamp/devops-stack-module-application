@@ -128,4 +128,4 @@ module "module_name" {
 
 As this is an application, it needs to be deployed after the deployment of Argo CD and consequently this module needs to have this explicit dependency.
 
-include::tf_docs_main.adoc[leveloffset=+2]
+include::tf_docs.adoc[leveloffset=+2]
