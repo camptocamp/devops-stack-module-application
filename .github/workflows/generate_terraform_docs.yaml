@@ -25,8 +25,7 @@ jobs:
         output-format: "asciidoc document"
         output-file: README.adoc
         output-method: inject
-        # Define template compatible with AsciiDoc
-        template: "// BEGIN_TF_DOCS\n{{ .Content }}\n// END_TF_DOCS"
+        template: "// BEGIN_TF_DOCS\n{{ .Content }}\n// END_TF_DOCS" # Define template compatible with AsciiDoc
         git-push: "true"
         git-commit-message: "terraform-docs: generate docs and write to README.adoc"
 
@@ -38,7 +37,7 @@ jobs:
         output-format: "asciidoc table"
         output-file: README.adoc
         output-method: inject
-        # Define template compatible with AsciiDoc
-        template: "// BEGIN_TF_TABLES\n{{ .Content }}\n// END_TF_TABLES"
+        template: "// BEGIN_TF_TABLES\n{{ .Content }}\n// END_TF_TABLES" # Define template compatible with AsciiDoc
+        args: "--hide-empty true" # Do not show empty sections
         git-push: "true"
         git-commit-message: "terraform-docs: generate tables and write to README.adoc"
