@@ -281,9 +281,7 @@ Description: The ID to pass other modules in order to refer to this module as a 
 [%collapsible]
 ====
 // BEGIN_TF_TABLES
-= Requirements
 
-No requirements.
 
 = Providers
 
@@ -294,10 +292,6 @@ No requirements.
 |[[provider_null]] <<provider_null,null>> |n/a
 |[[provider_utils]] <<provider_utils,utils>> |n/a
 |===
-
-= Modules
-
-No modules.
 
 = Resources
 
@@ -316,13 +310,13 @@ No modules.
 |===
 |Name |Description |Type |Default |Required
 |[[input_argocd_namespace]] <<input_argocd_namespace,argocd_namespace>>
-|n/a
+|The namespace used by Argo CD where the Application and AppProject resources should be created.
 |`string`
 |n/a
 |yes
 
 |[[input_dependency_ids]] <<input_dependency_ids,dependency_ids>>
-|n/a
+|The IDs of the other modules on which this module depends on.
 |`map(string)`
 |`{}`
 |no
@@ -346,7 +340,7 @@ No modules.
 |yes
 
 |[[input_project_cluster_resource_whitelist]] <<input_project_cluster_resource_whitelist,project_cluster_resource_whitelist>>
-|Cluster-scoped resources allowed to be deployed in the Argo CD AppProject created by the module. The **`group`** must be a Kubernetes API group such as `core` or `apps` and the **`kind`** must be a Kubernetes Kinds/Object Schemas such as `Namespace` or `ClusterRole` (note that only resources like these ones are compatible with this setting, the other resources are only Namespace-scoped). You can see the API Groups [here](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.25/#-strong-api-groups-strong-).
+|Cluster-scoped resources allowed to be deployed in the Argo CD AppProject created by the module. The *`group`* must be a Kubernetes API group such as `core` or `apps` and the *`kind`* must be a Kubernetes Kinds/Object Schemas such as `Namespace` or `ClusterRole` (note that only resources like these ones are compatible with this setting, the other resources are only Namespace-scoped). You can see the API Groups https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.25/#-strong-api-groups-strong[here].
 |
 
 [source]
@@ -372,7 +366,7 @@ list(object({
 |no
 
 |[[input_project_namespace_resource_whitelist]] <<input_project_namespace_resource_whitelist,project_namespace_resource_whitelist>>
-|Namespace-scoped resources allowed to be deployed in the Argo CD AppProject created by the module. The **`group`** must be a Kubernetes API group such as `core` or `apps` and the **`kind`** must be a Kubernetes Kinds/Object Schemas such as `Pod`, `ConfigMap`, `DaemonSet`, `Deployment`, etc. You can see the API Groups [here](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.25/#-strong-api-groups-strong-).
+|Namespace-scoped resources allowed to be deployed in the Argo CD AppProject created by the module. The *`group`* must be a Kubernetes API group such as `core` or `apps` and the *`kind`* must be a Kubernetes Kinds/Object Schemas such as `Pod`, `ConfigMap`, `DaemonSet`, `Deployment`, etc. You can see the API Groups https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.25/#-strong-api-groups-strong[here].
 |
 
 [source]
@@ -398,7 +392,7 @@ list(object({
 |no
 
 |[[input_source_repo]] <<input_source_repo,source_repo>>
-|Repository where the application's chart is located.
+|Repository where to retrieve the application's chart.
 |`string`
 |n/a
 |yes
@@ -410,7 +404,7 @@ list(object({
 |yes
 
 |[[input_source_target_revision]] <<input_source_target_revision,source_target_revision>>
-|Git target revision for the application.
+|Git target revision for the application chart.
 |`string`
 |n/a
 |yes
@@ -422,7 +416,7 @@ list(object({
 [cols="a,a",options="header,autowidth"]
 |===
 |Name |Description
-|[[output_id]] <<output_id,id>> |n/a
+|[[output_id]] <<output_id,id>> |The ID to pass other modules in order to refer to this module as a dependency.
 |===
 // END_TF_TABLES
 ====
