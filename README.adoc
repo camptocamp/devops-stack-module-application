@@ -27,7 +27,7 @@ By default, the created AppProject can only create an Application within a Names
 
 This module can be declared by adding the following block on your Terraform configuration:
 
-[source,hcl]
+[source,terraform]
 ----
 module "module_name" {
   source = "git::https://github.com/camptocamp/devops-stack-module-application.git?ref=<RELEASE>"
@@ -45,7 +45,7 @@ module "module_name" {
 
 A more complex declaration, that defines the Namespace and also the AppProject allowed resources, would look like this:
 
-[source,hcl]
+[source,terraform]
 ----
 module "module_name" {
   source = "git::https://github.com/camptocamp/devops-stack-module-application.git?ref=<RELEASE>"
@@ -83,7 +83,7 @@ module "module_name" {
 
 Furthermore, you can customize the chart's `values.yaml` by adding an Helm configuration as an HCL structure:
 
-[source,hcl]
+[source,terraform]
 ----
 module "module_name" {
   source = "git::https://github.com/camptocamp/devops-stack-module-application.git?ref=<RELEASE>"
@@ -223,7 +223,7 @@ Default: `[]`
 Description: Cluster-scoped resources allowed to be deployed in the Argo CD AppProject created by the module. The **`group`** must be a Kubernetes API group such as `core` or `apps` and the **`kind`** must be a Kubernetes Kinds/Object Schemas such as `Namespace` or `ClusterRole` (note that only resources like these ones are compatible with this setting, the other resources are only Namespace-scoped). You can see the API Groups [here](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.25/#-strong-api-groups-strong-).
 
 Type:
-[source,hcl]
+[source,terraform]
 ----
 list(object({
     group = string
@@ -247,7 +247,7 @@ Default:
 Description: Namespace-scoped resources allowed to be deployed in the Argo CD AppProject created by the module. The **`group`** must be a Kubernetes API group such as `core` or `apps` and the **`kind`** must be a Kubernetes Kinds/Object Schemas such as `Pod`, `ConfigMap`, `DaemonSet`, `Deployment`, etc. You can see the API Groups [here](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.25/#-strong-api-groups-strong-).
 
 Type:
-[source,hcl]
+[source,terraform]
 ----
 list(object({
     group = string
