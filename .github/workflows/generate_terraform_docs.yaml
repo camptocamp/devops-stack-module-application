@@ -38,6 +38,6 @@ jobs:
         output-file: README.adoc
         output-method: inject
         template: "// BEGIN_TF_TABLES\n{{ .Content }}\n// END_TF_TABLES" # Define template compatible with AsciiDoc
-        args: "--hide-empty true" # Do not show empty sections
+        args: "--hide-empty=true" # Do not show empty sections
         git-push: "true"
         git-commit-message: "terraform-docs: generate tables and write to README.adoc"
