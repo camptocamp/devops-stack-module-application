@@ -227,7 +227,7 @@ Type:
 ----
 list(object({
     group = string
-    kind = string
+    kind  = string
   }))
 ----
 
@@ -251,7 +251,7 @@ Type:
 ----
 list(object({
     group = string
-    kind = string
+    kind  = string
   }))
 ----
 
