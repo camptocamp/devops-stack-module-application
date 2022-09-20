@@ -4,7 +4,7 @@
 
 variable "argocd_namespace" {
   description = "The namespace used by Argo CD where the Application and AppProject resources should be created."
-  type = string
+  type        = string
 }
 
 variable "helm_values" {
@@ -15,7 +15,7 @@ variable "helm_values" {
 
 variable "dependency_ids" {
   description = "The IDs of the other modules on which this module depends on."
-  type = map(string)
+  type        = map(string)
 
   default = {}
 }
@@ -54,7 +54,7 @@ variable "project_cluster_resource_whitelist" {
   description = "Cluster-scoped resources allowed to be deployed in the Argo CD AppProject created by the module. The *`group`* must be a Kubernetes API group such as `core` or `apps` and the *`kind`* must be a Kubernetes Kinds/Object Schemas such as `Namespace` or `ClusterRole` (note that only resources like these ones are compatible with this setting, the other resources are only Namespace-scoped). You can see the API Groups https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.25/#-strong-api-groups-strong[here]."
   type = list(object({
     group = string
-    kind = string
+    kind  = string
   }))
   default = [
     {
@@ -68,7 +68,7 @@ variable "project_namespace_resource_whitelist" {
   description = "Namespace-scoped resources allowed to be deployed in the Argo CD AppProject created by the module. The *`group`* must be a Kubernetes API group such as `core` or `apps` and the *`kind`* must be a Kubernetes Kinds/Object Schemas such as `Pod`, `ConfigMap`, `DaemonSet`, `Deployment`, etc. You can see the API Groups https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.25/#-strong-api-groups-strong[here]."
   type = list(object({
     group = string
-    kind = string
+    kind  = string
   }))
   default = [
     {

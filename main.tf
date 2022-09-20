@@ -17,19 +17,19 @@ resource "argocd_project" "this" {
       warn = true
     }
 
-    dynamic cluster_resource_whitelist {
+    dynamic "cluster_resource_whitelist" {
       for_each = var.project_cluster_resource_whitelist
       content {
         group = cluster_resource_whitelist.value["group"]
-        kind = cluster_resource_whitelist.value["kind"]
+        kind  = cluster_resource_whitelist.value["kind"]
       }
     }
 
-    dynamic namespace_resource_whitelist {
+    dynamic "namespace_resource_whitelist" {
       for_each = var.project_namespace_resource_whitelist
       content {
         group = namespace_resource_whitelist.value["group"]
-        kind = namespace_resource_whitelist.value["kind"]
+        kind  = namespace_resource_whitelist.value["kind"]
       }
     }
   }
