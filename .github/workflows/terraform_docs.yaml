@@ -2,7 +2,7 @@
 # GitHub Actions workflow to automatically generate documentation from the .tf files of the module
 # The generated documentation will be injected between AsciiDoc comments on the README.adoc
 
-name: Generate Terraform documentation
+name: "Generate Terraform documentation"
 
 on:
   - pull_request
@@ -12,21 +12,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check out the repository
+    - name: "Check out the repository"
       uses: actions/checkout@v3
       with:
         ref: ${{ github.event.pull_request.head.ref }}
 
-    - name: Generate Terraform docs inside the README.adoc and push changes back to PR branch
+    - name: "Generate Terraform docs inside the README.adoc and push changes back to PR branch"
       uses: terraform-docs/gh-actions@v1.0.0
       with:
         working-dir: .
         indention: 3
-        output-format: "asciidoc document"
+        output-format: asciidoc document
         output-file: README.adoc
         output-method: inject
         template: "// BEGIN_TF_DOCS\n{{ .Content }}\n// END_TF_DOCS" # Define template compatible with AsciiDoc
-        git-push: "true"
+        git-push: true
         git-commit-message: "docs(terraform-docs): generate docs and write to README.adoc"
 
     - name: Generate Terraform tables inside the README.adoc and push changes back to PR branch
@@ -34,10 +34,10 @@ jobs:
       with:
         working-dir: .
         indention: 1 # Since the headings are not read inside the collapsible block we can indent as 1 instead of aligning with the rest of the text
-        output-format: "asciidoc table"
+        output-format: asciidoc table
         output-file: README.adoc
         output-method: inject
         template: "// BEGIN_TF_TABLES\n{{ .Content }}\n// END_TF_TABLES" # Define template compatible with AsciiDoc
         args: "--hide-empty=true" # Do not show empty sections
-        git-push: "true"
+        git-push: true
         git-commit-message: "docs(terraform-docs): generate tables and write to README.adoc"
