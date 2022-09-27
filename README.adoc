@@ -162,7 +162,7 @@ The following input variables are required:
 
 ==== [[input_argocd_namespace]] <<input_argocd_namespace,argocd_namespace>>
 
-Description: The namespace used by Argo CD where the Application and AppProject resources should be created.
+Description: Namespace used by Argo CD where the Application and AppProject resources should be created.
 
 Type: `string`
 
@@ -196,7 +196,7 @@ The following input variables are optional (have default values):
 
 ==== [[input_dependency_ids]] <<input_dependency_ids,dependency_ids>>
 
-Description: The IDs of the other modules on which this module depends on.
+Description: IDs of the other modules on which this module depends on.
 
 Type: `map(string)`
 
@@ -212,7 +212,7 @@ Default: `null`
 
 ==== [[input_helm_values]] <<input_helm_values,helm_values>>
 
-Description: Helm values, passed as a list of HCL structures.
+Description: Helm values, passed as a list of HCL structures. These values are concatenated with the default ones and then passed to the application's charts.
 
 Type: `any`
 
@@ -272,7 +272,7 @@ The following outputs are exported:
 
 ==== [[output_id]] <<output_id,id>>
 
-Description: The ID to pass other modules in order to refer to this module as a dependency.
+Description: ID to pass other modules in order to refer to this module as a dependency.
 // END_TF_DOCS
 
 === Reference in table format 
@@ -310,13 +310,13 @@ Description: The ID to pass other modules in order to refer to this module as a 
 |===
 |Name |Description |Type |Default |Required
 |[[input_argocd_namespace]] <<input_argocd_namespace,argocd_namespace>>
-|The namespace used by Argo CD where the Application and AppProject resources should be created.
+|Namespace used by Argo CD where the Application and AppProject resources should be created.
 |`string`
 |n/a
 |yes
 
 |[[input_dependency_ids]] <<input_dependency_ids,dependency_ids>>
-|The IDs of the other modules on which this module depends on.
+|IDs of the other modules on which this module depends on.
 |`map(string)`
 |`{}`
 |no
@@ -328,7 +328,7 @@ Description: The ID to pass other modules in order to refer to this module as a 
 |no
 
 |[[input_helm_values]] <<input_helm_values,helm_values>>
-|Helm values, passed as a list of HCL structures.
+|Helm values, passed as a list of HCL structures. These values are concatenated with the default ones and then passed to the application's charts.
 |`any`
 |`[]`
 |no
@@ -416,7 +416,7 @@ list(object({
 [cols="a,a",options="header,autowidth"]
 |===
 |Name |Description
-|[[output_id]] <<output_id,id>> |The ID to pass other modules in order to refer to this module as a dependency.
+|[[output_id]] <<output_id,id>> |ID to pass other modules in order to refer to this module as a dependency.
 |===
 // END_TF_TABLES
 ====
