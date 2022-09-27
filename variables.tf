@@ -3,18 +3,18 @@
 #######################
 
 variable "argocd_namespace" {
-  description = "The namespace used by Argo CD where the Application and AppProject resources should be created."
+  description = "Namespace used by Argo CD where the Application and AppProject resources should be created."
   type        = string
 }
 
 variable "helm_values" {
-  description = "Helm values, passed as a list of HCL structures."
+  description = "Helm values, passed as a list of HCL structures. These values are concatenated with the default ones and then passed to the application's charts."
   type        = any
   default     = []
 }
 
 variable "dependency_ids" {
-  description = "The IDs of the other modules on which this module depends on."
+  description = "IDs of the other modules on which this module depends on."
   type        = map(string)
 
   default = {}

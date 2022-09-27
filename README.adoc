@@ -32,11 +32,11 @@ This module can be declared by adding the following block on your Terraform conf
 module "module_name" {
   source = "git::https://github.com/camptocamp/devops-stack-module-application.git?ref=<RELEASE>"
 
-  name = "application-name"
+  name             = "application-name"
   argocd_namespace = local.argocd_namespace
 
-  source_repo = "https://github.com/owner/repository.git"
-  source_repo_path = "path/to/chart"
+  source_repo            = "https://github.com/owner/repository.git"
+  source_repo_path       = "path/to/chart"
   source_target_revision = "branch"
 
   depends_on = [module.argocd]
@@ -50,11 +50,11 @@ A more complex declaration, that defines the Namespace and also the AppProject a
 module "module_name" {
   source = "git::https://github.com/camptocamp/devops-stack-module-application.git?ref=<RELEASE>"
 
-  name = "application-name"
+  name             = "application-name"
   argocd_namespace = local.argocd_namespace
 
-  source_repo = "https://github.com/owner/repository.git"
-  source_repo_path = "path/to/chart"
+  source_repo            = "https://github.com/owner/repository.git"
+  source_repo_path       = "path/to/chart"
   source_target_revision = "branch"
 
   destination_namespace = "namespace"
@@ -88,17 +88,17 @@ Furthermore, you can customize the chart's `values.yaml` by adding an Helm confi
 module "module_name" {
   source = "git::https://github.com/camptocamp/devops-stack-module-application.git?ref=<RELEASE>"
 
-  name = "application-name"
+  name             = "application-name"
   argocd_namespace = local.argocd_namespace
 
-  source_repo = "https://github.com/owner/repository.git"
-  source_repo_path = "path/to/chart"
+  source_repo            = "https://github.com/owner/repository.git"
+  source_repo_path       = "path/to/chart"
   source_target_revision = "branch"
 
   helm_values = [
     map = {
       string = "string"
-      bool = true
+      bool   = true
     }
     sequence = [
       {
