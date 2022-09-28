@@ -1,4 +1,6 @@
 ---
-name: "application"
+name: "Application Module"
 version: true
 start_page: README.adoc
+nav:
+  - "modules/ROOT/nav.adoc"
