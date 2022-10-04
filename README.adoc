@@ -95,7 +95,7 @@ module "module_name" {
   source_repo_path       = "path/to/chart"
   source_target_revision = "branch"
 
-  helm_values = [
+  helm_values = [{ # Note the curly brackets here
     map = {
       string = "string"
       bool   = true
@@ -114,7 +114,7 @@ module "module_name" {
       "string1",
       "string2"
     ]
-  ]
+  }]
   
   depends_on = [module.argocd]
 }
