@@ -1,0 +1,422 @@
+= devops-stack-module-application
+
+A https://devops-stack.io[DevOps Stack] module to deploy a simple Application in Argo CD.
+
+The module creates an Argo CD AppProject using the name given on declaration and then creates an Argo CD Application using the chart that is inside the path for the Git repository that is declared.
+
+Inside that folder, the module expects an Helm chart with a folder structure similar to the following (as is standard practice):
+
+....
+application_folder
+  ├── Chart.yaml
+  ├── charts
+  │   ├── dependency1.tar.gz
+  │   └── dependency2.tar.gz
+  ├── secrets.yaml
+  ├── templates
+  │   ├── template1.yaml
+  │   ├── template2.yaml
+  │   ├── template3.yaml
+  │   └── _helpers.tpl
+  └── values.yaml
+....
+
+By default, the created AppProject can only create an Application within a Namespace of the same name or within a Namespace declared on the module declaration. Besides that, the AppProject has the permission to create any kind of Kubernetes resources inside the destination cluster, but you can restrict the allowed resources if you need to.
+
+== Usage
+
+This module can be declared by adding the following block on your Terraform configuration:
+
+[source,terraform]
+----
+module "module_name" {
+  source = "git::https://github.com/camptocamp/devops-stack-module-application.git?ref=<RELEASE>"
+
+  name             = "application-name"
+  argocd_namespace = local.argocd_namespace
+
+  source_repo            = "https://github.com/owner/repository.git"
+  source_repo_path       = "path/to/chart"
+  source_target_revision = "branch"
+
+  depends_on = [module.argocd]
+}
+----
+
+A more complex declaration, that defines the Namespace and also the AppProject allowed resources, would look like this:
+
+[source,terraform]
+----
+module "module_name" {
+  source = "git::https://github.com/camptocamp/devops-stack-module-application.git?ref=<RELEASE>"
+
+  name             = "application-name"
+  argocd_namespace = local.argocd_namespace
+
+  source_repo            = "https://github.com/owner/repository.git"
+  source_repo_path       = "path/to/chart"
+  source_target_revision = "branch"
+
+  destination_namespace = "namespace"
+
+  project_cluster_resource_whitelist = [ 
+    {
+      group = "*"
+      kind = "Namespace"
+    },
+  ]
+
+  project_namespace_resource_whitelist = [
+    {
+      group = "apps"
+      kind = "Deployment"
+    },
+    {
+      group = "*"
+      kind = "Service"
+    },
+  ]
+
+  depends_on = [module.argocd]
+}
+----
+
+Furthermore, you can customize the chart's `values.yaml` by adding an Helm configuration as an HCL structure:
+
+[source,terraform]
+----
+module "module_name" {
+  source = "git::https://github.com/camptocamp/devops-stack-module-application.git?ref=<RELEASE>"
+
+  name             = "application-name"
+  argocd_namespace = local.argocd_namespace
+
+  source_repo            = "https://github.com/owner/repository.git"
+  source_repo_path       = "path/to/chart"
+  source_target_revision = "branch"
+
+  helm_values = [{ # Note the curly brackets here
+    map = {
+      string = "string"
+      bool   = true
+    }
+    sequence = [
+      {
+        key1 = "value1"
+        key2 = "value2"
+      },
+      {
+        key1 = "value1"
+        key2 = "value2"
+      },
+    ]
+    sequence2 = [
+      "string1",
+      "string2"
+    ]
+  }]
+  
+  depends_on = [module.argocd]
+}
+----
+
+== Technical Reference
+
+=== Dependencies
+
+==== `module.argocd`
+
+As this is an application, it needs to be deployed after the deployment of Argo CD and consequently this module needs to have this explicit dependency.
+
+// BEGIN_TF_DOCS
+=== Requirements
+
+No requirements.
+
+=== Providers
+
+The following providers are used by this module:
+
+- [[provider_argocd]] <<provider_argocd,argocd>>
+
+- [[provider_null]] <<provider_null,null>>
+
+- [[provider_utils]] <<provider_utils,utils>>
+
+=== Modules
+
+No modules.
+
+=== Resources
+
+The following resources are used by this module:
+
+- https://registry.terraform.io/providers/oboukili/argocd/latest/docs/resources/application[argocd_application.this] (resource)
+- https://registry.terraform.io/providers/oboukili/argocd/latest/docs/resources/project[argocd_project.this] (resource)
+- https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource[null_resource.this] (resource)
+- https://registry.terraform.io/providers/cloudposse/utils/latest/docs/data-sources/deep_merge_yaml[utils_deep_merge_yaml.values] (data source)
+
+=== Required Inputs
+
+The following input variables are required:
+
+==== [[input_argocd_namespace]] <<input_argocd_namespace,argocd_namespace>>
+
+Description: Namespace used by Argo CD where the Application and AppProject resources should be created.
+
+Type: `string`
+
+==== [[input_name]] <<input_name,name>>
+
+Description: Name to give the to the AppProject and Application.
+
+Type: `string`
+
+==== [[input_source_repo]] <<input_source_repo,source_repo>>
+
+Description: Repository where to retrieve the application's chart.
+
+Type: `string`
+
+==== [[input_source_repo_path]] <<input_source_repo_path,source_repo_path>>
+
+Description: Path for the application's chart in the source repository.
+
+Type: `string`
+
+==== [[input_source_target_revision]] <<input_source_target_revision,source_target_revision>>
+
+Description: Git target revision for the application chart.
+
+Type: `string`
+
+=== Optional Inputs
+
+The following input variables are optional (have default values):
+
+==== [[input_dependency_ids]] <<input_dependency_ids,dependency_ids>>
+
+Description: IDs of the other modules on which this module depends on.
+
+Type: `map(string)`
+
+Default: `{}`
+
+==== [[input_destination_namespace]] <<input_destination_namespace,destination_namespace>>
+
+Description: Namespace where the application will be deployed. By default it is the same as the application's name defined by `var.name`. We use a ternary operator to conditionally define the Namespace only if it is defined on the module's instantiation: `namespace = var.destination_namespace == null ? var.name : var.destination_namespace`.
+
+Type: `string`
+
+Default: `null`
+
+==== [[input_helm_values]] <<input_helm_values,helm_values>>
+
+Description: Helm values, passed as a list of HCL structures. These values are concatenated with the default ones and then passed to the application's charts.
+
+Type: `any`
+
+Default: `[]`
+
+==== [[input_project_cluster_resource_whitelist]] <<input_project_cluster_resource_whitelist,project_cluster_resource_whitelist>>
+
+Description: Cluster-scoped resources allowed to be deployed in the Argo CD AppProject created by the module. The *`group`* must be a Kubernetes API group such as `core` or `apps` and the *`kind`* must be a Kubernetes Kinds/Object Schemas such as `Namespace` or `ClusterRole` (note that only resources like these ones are compatible with this setting, the other resources are only Namespace-scoped). You can see the API Groups https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.25/#-strong-api-groups-strong[here].
+
+Type:
+[source,hcl]
+----
+list(object({
+    group = string
+    kind  = string
+  }))
+----
+
+Default:
+[source,json]
+----
+[
+  {
+    "group": "*",
+    "kind": "*"
+  }
+]
+----
+
+==== [[input_project_namespace_resource_whitelist]] <<input_project_namespace_resource_whitelist,project_namespace_resource_whitelist>>
+
+Description: Namespace-scoped resources allowed to be deployed in the Argo CD AppProject created by the module. The *`group`* must be a Kubernetes API group such as `core` or `apps` and the *`kind`* must be a Kubernetes Kinds/Object Schemas such as `Pod`, `ConfigMap`, `DaemonSet`, `Deployment`, etc. You can see the API Groups https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.25/#-strong-api-groups-strong[here].
+
+Type:
+[source,hcl]
+----
+list(object({
+    group = string
+    kind  = string
+  }))
+----
+
+Default:
+[source,json]
+----
+[
+  {
+    "group": "*",
+    "kind": "*"
+  }
+]
+----
+
+=== Outputs
+
+The following outputs are exported:
+
+==== [[output_id]] <<output_id,id>>
+
+Description: ID to pass other modules in order to refer to this module as a dependency.
+// END_TF_DOCS
+
+=== Reference in table format 
+
+.Show tables
+[%collapsible]
+====
+// BEGIN_TF_TABLES
+
+
+= Providers
+
+[cols="a,a",options="header,autowidth"]
+|===
+|Name |Version
+|[[provider_argocd]] <<provider_argocd,argocd>> |n/a
+|[[provider_null]] <<provider_null,null>> |n/a
+|[[provider_utils]] <<provider_utils,utils>> |n/a
+|===
+
+= Resources
+
+[cols="a,a",options="header,autowidth"]
+|===
+|Name |Type
+|https://registry.terraform.io/providers/oboukili/argocd/latest/docs/resources/application[argocd_application.this] |resource
+|https://registry.terraform.io/providers/oboukili/argocd/latest/docs/resources/project[argocd_project.this] |resource
+|https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource[null_resource.this] |resource
+|https://registry.terraform.io/providers/cloudposse/utils/latest/docs/data-sources/deep_merge_yaml[utils_deep_merge_yaml.values] |data source
+|===
+
+= Inputs
+
+[cols="a,a,a,a,a",options="header,autowidth"]
+|===
+|Name |Description |Type |Default |Required
+|[[input_argocd_namespace]] <<input_argocd_namespace,argocd_namespace>>
+|Namespace used by Argo CD where the Application and AppProject resources should be created.
+|`string`
+|n/a
+|yes
+
+|[[input_dependency_ids]] <<input_dependency_ids,dependency_ids>>
+|IDs of the other modules on which this module depends on.
+|`map(string)`
+|`{}`
+|no
+
+|[[input_destination_namespace]] <<input_destination_namespace,destination_namespace>>
+|Namespace where the application will be deployed. By default it is the same as the application's name defined by `var.name`. We use a ternary operator to conditionally define the Namespace only if it is defined on the module's instantiation: `namespace = var.destination_namespace == null ? var.name : var.destination_namespace`.
+|`string`
+|`null`
+|no
+
+|[[input_helm_values]] <<input_helm_values,helm_values>>
+|Helm values, passed as a list of HCL structures. These values are concatenated with the default ones and then passed to the application's charts.
+|`any`
+|`[]`
+|no
+
+|[[input_name]] <<input_name,name>>
+|Name to give the to the AppProject and Application.
+|`string`
+|n/a
+|yes
+
+|[[input_project_cluster_resource_whitelist]] <<input_project_cluster_resource_whitelist,project_cluster_resource_whitelist>>
+|Cluster-scoped resources allowed to be deployed in the Argo CD AppProject created by the module. The *`group`* must be a Kubernetes API group such as `core` or `apps` and the *`kind`* must be a Kubernetes Kinds/Object Schemas such as `Namespace` or `ClusterRole` (note that only resources like these ones are compatible with this setting, the other resources are only Namespace-scoped). You can see the API Groups https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.25/#-strong-api-groups-strong[here].
+|
+
+[source]
+----
+list(object({
+    group = string
+    kind  = string
+  }))
+----
+
+|
+
+[source]
+----
+[
+  {
+    "group": "*",
+    "kind": "*"
+  }
+]
+----
+
+|no
+
+|[[input_project_namespace_resource_whitelist]] <<input_project_namespace_resource_whitelist,project_namespace_resource_whitelist>>
+|Namespace-scoped resources allowed to be deployed in the Argo CD AppProject created by the module. The *`group`* must be a Kubernetes API group such as `core` or `apps` and the *`kind`* must be a Kubernetes Kinds/Object Schemas such as `Pod`, `ConfigMap`, `DaemonSet`, `Deployment`, etc. You can see the API Groups https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.25/#-strong-api-groups-strong[here].
+|
+
+[source]
+----
+list(object({
+    group = string
+    kind  = string
+  }))
+----
+
+|
+
+[source]
+----
+[
+  {
+    "group": "*",
+    "kind": "*"
+  }
+]
+----
+
+|no
+
+|[[input_source_repo]] <<input_source_repo,source_repo>>
+|Repository where to retrieve the application's chart.
+|`string`
+|n/a
+|yes
+
+|[[input_source_repo_path]] <<input_source_repo_path,source_repo_path>>
+|Path for the application's chart in the source repository.
+|`string`
+|n/a
+|yes
+
+|[[input_source_target_revision]] <<input_source_target_revision,source_target_revision>>
+|Git target revision for the application chart.
+|`string`
+|n/a
+|yes
+
+|===
+
+= Outputs
+
+[cols="a,a",options="header,autowidth"]
+|===
+|Name |Description
+|[[output_id]] <<output_id,id>> |ID to pass other modules in order to refer to this module as a dependency.
+|===
+// END_TF_TABLES
+====
