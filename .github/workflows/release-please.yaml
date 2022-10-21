@@ -7,5 +7,7 @@ on:
     - "main"
 
 jobs:
-  linters:
+  release:
     uses: camptocamp/devops-stack/.github/workflows/modules-release-please.yaml@v1-central-workflows # TODO Remove ref when called modules are merged to main
+    with:
+      prerelease: true
