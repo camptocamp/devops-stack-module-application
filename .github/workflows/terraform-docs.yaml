@@ -6,5 +6,4 @@ on:
 
 jobs:
   terraform-docs:
-  linters:
     uses: camptocamp/devops-stack/.github/workflows/modules-terraform-docs.yaml@v1-central-workflows
