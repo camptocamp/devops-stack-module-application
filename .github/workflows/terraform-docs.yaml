@@ -1,5 +1,5 @@
 ---
-name: "Generate Terraform documentation"
+name: "Terraform Docs"
 
 on:
   pull_request:
