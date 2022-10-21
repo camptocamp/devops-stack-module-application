@@ -6,4 +6,4 @@ on:
 
 jobs:
   linters:
-    uses: camptocamp/devops-stack/.github/workflows/modules-linters.yaml@v1-central-workflows
+    uses: camptocamp/devops-stack/.github/workflows/modules-linters.yaml@v1-central-workflows # TODO Remove ref when called modules are merged to main
