@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/camptocamp/devops-stack-module-application/compare/v1.0.0...v1.0.1) (2022-10-26)
+
+
+### Miscellaneous Chores
+
+* release 1.0.1 to fix docs ([#16](https://github.com/camptocamp/devops-stack-module-application/issues/16)) ([6582c59](https://github.com/camptocamp/devops-stack-module-application/commit/6582c59d473cccca6cfad83fc5a7c2d9a3332427))
+
 ## [1.0.0](https://github.com/camptocamp/devops-stack-module-application/compare/v1.0.0...v1.0.0) (2022-10-24)
 
 
