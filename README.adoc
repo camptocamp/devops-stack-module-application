@@ -35,7 +35,7 @@ module "module_name" {
   name             = "application-name"
   argocd_namespace = local.argocd_namespace
 
-  source_repo            = "https://github.com/owner/repository.git"
+  source_repo            = "https://address.com/owner/repository.git"
   source_repo_path       = "path/to/chart"
   source_target_revision = "branch"
 
@@ -53,7 +53,7 @@ module "module_name" {
   name             = "application-name"
   argocd_namespace = local.argocd_namespace
 
-  source_repo            = "https://github.com/owner/repository.git"
+  source_repo            = "https://address.com/owner/repository.git"
   source_repo_path       = "path/to/chart"
   source_target_revision = "branch"
 
@@ -91,7 +91,7 @@ module "module_name" {
   name             = "application-name"
   argocd_namespace = local.argocd_namespace
 
-  source_repo            = "https://github.com/owner/repository.git"
+  source_repo            = "https://address.com/owner/repository.git"
   source_repo_path       = "path/to/chart"
   source_target_revision = "branch"
 
@@ -116,6 +116,64 @@ module "module_name" {
     ]
   }]
   
+  depends_on = [module.argocd]
+}
+----
+
+=== Using a private repository
+
+When your charts are stored inside a private repository, Argo CD needs to have the credentials necessary to have at least read access to the contents of the repository.
+
+This module has 2 variables you can use for that, depending on the type of credentials you want to configure, either HTTPS or SSH.
+
+==== SSH
+
+You'll need to pass a string containing a private SSH key in the variable `source_credentials_ssh_key` (you can pass the value however you want, as long as it is a string) and the repository needs to be of the type `git@address.com:owner/repository`.
+
+IMPORTANT: Do not hardcode your SSH private key as the example below! Either create the SSH key using Terraform and pass the output directly or use SOPS to store and pass the key as a secret. 
+
+[source,terraform]
+----
+module "module_name" {
+  source = "git::https://github.com/camptocamp/devops-stack-module-application.git?ref=<RELEASE>"
+
+  name             = "application-name"
+  argocd_namespace = local.argocd_namespace
+
+  source_repo            = "git@address.com:owner/repository"
+  source_repo_path       = "path/to/chart"
+  source_target_revision = "branch"
+
+  source_credentials_ssh_key = "-----BEGIN OPENSSH PRIVATE KEY-----\nfoo\nbar\n-----END OPENSSH PRIVATE KEY-----"
+
+  depends_on = [module.argocd]
+}
+----
+
+==== HTTPS
+
+You'll need to pass the username and password inside the variable `source_credentials_https` and the repository needs to be of the type `https://address.com/owner/repository`.
+
+IMPORTANT: Do not hardcode your password the example below! It is recommended to pass the value as secret, either using SOPS or another provider. Another best practice would be to use a token you created on Github.com (or another provider) that has the least amount of access needed (in these use-case, Argo CD only needs read access).
+
+[source,terraform]
+----
+module "module_name" {
+  source = "git::https://github.com/camptocamp/devops-stack-module-application.git?ref=<RELEASE>"
+
+  name             = "application-name"
+  argocd_namespace = local.argocd_namespace
+
+  source_repo            = "https://address.com/owner/repository.git"
+  source_repo_path       = "path/to/chart"
+  source_target_revision = "branch"
+
+  source_credentials_https = {
+    username = "your_username"
+    password = "your_token_password"
+    https_insecure = false
+  }
+
   depends_on = [module.argocd]
 }
 ----
