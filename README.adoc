@@ -211,6 +211,8 @@ The following resources are used by this module:
 
 - https://registry.terraform.io/providers/oboukili/argocd/latest/docs/resources/application[argocd_application.this] (resource)
 - https://registry.terraform.io/providers/oboukili/argocd/latest/docs/resources/project[argocd_project.this] (resource)
+- https://registry.terraform.io/providers/oboukili/argocd/latest/docs/resources/repository[argocd_repository.private_https_repo] (resource)
+- https://registry.terraform.io/providers/oboukili/argocd/latest/docs/resources/repository[argocd_repository.private_ssh_repo] (resource)
 - https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource[null_resource.this] (resource)
 - https://registry.terraform.io/providers/cloudposse/utils/latest/docs/data-sources/deep_merge_yaml[utils_deep_merge_yaml.values] (data source)
 
@@ -324,6 +326,38 @@ Default:
 ]
 ----
 
+==== [[input_source_credentials_https]] <<input_source_credentials_https,source_credentials_https>>
+
+Description: Credentials to connect to a private repository. Use this variable when connecting through HTTPS. You'll need to provide the the `username` and `password` values. If the TLS certificate for the HTTPS connection is not issued by a qualified CA, you can set `https_insecure` as true.
+
+Type:
+[source,hcl]
+----
+object({
+    username       = string
+    password       = string
+    https_insecure = bool
+  })
+----
+
+Default:
+[source,json]
+----
+{
+  "https_insecure": false,
+  "password": null,
+  "username": null
+}
+----
+
+==== [[input_source_credentials_ssh_key]] <<input_source_credentials_ssh_key,source_credentials_ssh_key>>
+
+Description: Credentials to connect to a private repository. Use this variable when connecting to a repository through SSH.
+
+Type: `string`
+
+Default: `null`
+
 === Outputs
 
 The following outputs are exported:
@@ -358,6 +392,8 @@ Description: ID to pass other modules in order to refer to this module as a depe
 |Name |Type
 |https://registry.terraform.io/providers/oboukili/argocd/latest/docs/resources/application[argocd_application.this] |resource
 |https://registry.terraform.io/providers/oboukili/argocd/latest/docs/resources/project[argocd_project.this] |resource
+|https://registry.terraform.io/providers/oboukili/argocd/latest/docs/resources/repository[argocd_repository.private_https_repo] |resource
+|https://registry.terraform.io/providers/oboukili/argocd/latest/docs/resources/repository[argocd_repository.private_ssh_repo] |resource
 |https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource[null_resource.this] |resource
 |https://registry.terraform.io/providers/cloudposse/utils/latest/docs/data-sources/deep_merge_yaml[utils_deep_merge_yaml.values] |data source
 |===
@@ -447,6 +483,38 @@ list(object({
 ]
 ----
 
+|no
+
+|[[input_source_credentials_https]] <<input_source_credentials_https,source_credentials_https>>
+|Credentials to connect to a private repository. Use this variable when connecting through HTTPS. You'll need to provide the the `username` and `password` values. If the TLS certificate for the HTTPS connection is not issued by a qualified CA, you can set `https_insecure` as true.
+|
+
+[source]
+----
+object({
+    username       = string
+    password       = string
+    https_insecure = bool
+  })
+----
+
+|
+
+[source]
+----
+{
+  "https_insecure": false,
+  "password": null,
+  "username": null
+}
+----
+
+|no
+
+|[[input_source_credentials_ssh_key]] <<input_source_credentials_ssh_key,source_credentials_ssh_key>>
+|Credentials to connect to a private repository. Use this variable when connecting to a repository through SSH.
+|`string`
+|`null`
 |no
 
 |[[input_source_repo]] <<input_source_repo,source_repo>>
