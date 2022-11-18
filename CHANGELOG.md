@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/camptocamp/devops-stack-module-application/compare/v1.0.1...v1.1.0) (2022-11-18)
+
+
+### Features
+
+* add variables to configure credentials for private repositories ([#18](https://github.com/camptocamp/devops-stack-module-application/issues/18)) ([07c4a09](https://github.com/camptocamp/devops-stack-module-application/commit/07c4a09486232b1398192e3d55de171fa109d17d))
+
 ## [1.0.1](https://github.com/camptocamp/devops-stack-module-application/compare/v1.0.0...v1.0.1) (2022-10-26)
 
 
