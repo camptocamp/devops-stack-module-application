@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/camptocamp/devops-stack-module-application/compare/v1.1.0...v1.1.1) (2022-12-09)
+
+
+### Documentation
+
+* add link to repository ([#20](https://github.com/camptocamp/devops-stack-module-application/issues/20)) ([9e9fbd4](https://github.com/camptocamp/devops-stack-module-application/commit/9e9fbd4d582e6cb346292b2a8a1e8424e6298c0b))
+
 ## [1.1.0](https://github.com/camptocamp/devops-stack-module-application/compare/v1.0.1...v1.1.0) (2022-11-18)
 
 
