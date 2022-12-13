@@ -7,6 +7,20 @@ variable "argocd_namespace" {
   type        = string
 }
 
+variable "app_autosync" {
+  description = "Automated sync options for the Argo CD Application resource."
+  type = object({
+    allow_empty = optional(bool)
+    prune       = optional(bool)
+    self_heal   = optional(bool)
+  })
+  default = {
+    allow_empty = false
+    prune       = true
+    self_heal   = true
+  }
+}
+
 variable "helm_values" {
   description = "Helm values, passed as a list of HCL structures. These values are concatenated with the default ones and then passed to the application's charts."
   type        = any
@@ -16,8 +30,7 @@ variable "helm_values" {
 variable "dependency_ids" {
   description = "IDs of the other modules on which this module depends on."
   type        = map(string)
-
-  default = {}
+  default     = {}
 }
 
 #######################
