@@ -16,7 +16,6 @@ variable "helm_values" {
 variable "dependency_ids" {
   description = "IDs of the other modules on which this module depends on."
   type        = map(string)
-
   default = {}
 }
 

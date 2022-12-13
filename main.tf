@@ -1,3 +1,7 @@
+resource "null_resource" "dependencies" {
+  triggers = var.dependency_ids
+}
+
 resource "argocd_repository" "private_https_repo" {
   # This count here is nothing more than a way to conditionally deploy this resource. Although there is no loop inside 
   # the resource, if the condition is true, the resource is deployed because there is exactly one iteration.
@@ -110,6 +114,10 @@ resource "argocd_application" "this" {
       ]
     }
   }
+
+  depends_on = [
+    resource.null_resource.dependencies,
+  ]
 }
 
 resource "null_resource" "this" {
