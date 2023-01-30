@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/camptocamp/devops-stack-module-application/compare/v1.1.1...v1.2.0) (2023-01-30)
+
+
+### Features
+
+* add variable to configure auto-sync of the Argo CD Application ([#22](https://github.com/camptocamp/devops-stack-module-application/issues/22)) ([528bfc5](https://github.com/camptocamp/devops-stack-module-application/commit/528bfc521deb70c043fe05ee7c066fd2dcbe75e9))
+
 ## [1.1.1](https://github.com/camptocamp/devops-stack-module-application/compare/v1.1.0...v1.1.1) (2022-12-09)
 
 
