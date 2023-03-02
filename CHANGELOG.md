@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.1](https://github.com/camptocamp/devops-stack-module-application/compare/v1.2.0...v1.2.1) (2023-03-02)
+
+
+### Bug Fixes
+
+* add loose version constraints to the required providers ([0b2dbac](https://github.com/camptocamp/devops-stack-module-application/commit/0b2dbac600d521f887cf171103d631c55dfd1053))
+* use comparison with null instead of can() ([a75eb6c](https://github.com/camptocamp/devops-stack-module-application/commit/a75eb6cba478ea9eaa6fe674d015a9e2989a0808))
+
 ## [1.2.0](https://github.com/camptocamp/devops-stack-module-application/compare/v1.1.1...v1.2.0) (2023-01-30)
 
 
