@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/camptocamp/devops-stack-module-application/compare/v1.2.1...v1.2.2) (2023-03-08)
+
+
+### Bug Fixes
+
+* change to looser versions constraints as per best practices ([6895344](https://github.com/camptocamp/devops-stack-module-application/commit/68953445ca6bbedc4e8d6acea2b50fb93b4f0568))
+
 ## [1.2.1](https://github.com/camptocamp/devops-stack-module-application/compare/v1.2.0...v1.2.1) (2023-03-02)
 
 
