@@ -199,11 +199,11 @@ The following requirements are needed by this module:
 
 The following providers are used by this module:
 
-- [[provider_argocd]] <<provider_argocd,argocd>> (>= 4)
-
 - [[provider_null]] <<provider_null,null>>
 
 - [[provider_utils]] <<provider_utils,utils>> (>= 1)
+
+- [[provider_argocd]] <<provider_argocd,argocd>> (>= 4)
 
 === Resources
 
@@ -279,6 +279,14 @@ Default:
 }
 ----
 
+==== [[input_helm_values]] <<input_helm_values,helm_values>>
+
+Description: Helm values, passed as a list of HCL structures. These values are concatenated with the default ones and then passed to the application's charts.
+
+Type: `any`
+
+Default: `[]`
+
 ==== [[input_dependency_ids]] <<input_dependency_ids,dependency_ids>>
 
 Description: IDs of the other modules on which this module depends on.
@@ -294,14 +302,6 @@ Description: Namespace where the application will be deployed. By default it is 
 Type: `string`
 
 Default: `null`
-
-==== [[input_helm_values]] <<input_helm_values,helm_values>>
-
-Description: Helm values, passed as a list of HCL structures. These values are concatenated with the default ones and then passed to the application's charts.
-
-Type: `any`
-
-Default: `[]`
 
 ==== [[input_project_cluster_resource_whitelist]] <<input_project_cluster_resource_whitelist,project_cluster_resource_whitelist>>
 
@@ -412,9 +412,9 @@ Description: ID to pass other modules in order to refer to this module as a depe
 [cols="a,a",options="header,autowidth"]
 |===
 |Name |Version
+|[[provider_utils]] <<provider_utils,utils>> |>= 1
 |[[provider_argocd]] <<provider_argocd,argocd>> |>= 4
 |[[provider_null]] <<provider_null,null>> |n/a
-|[[provider_utils]] <<provider_utils,utils>> |>= 1
 |===
 
 = Resources
@@ -436,6 +436,12 @@ Description: ID to pass other modules in order to refer to this module as a depe
 [cols="a,a,a,a,a",options="header,autowidth"]
 |===
 |Name |Description |Type |Default |Required
+|[[input_argocd_namespace]] <<input_argocd_namespace,argocd_namespace>>
+|Namespace used by Argo CD where the Application and AppProject resources should be created.
+|`string`
+|n/a
+|yes
+
 |[[input_app_autosync]] <<input_app_autosync,app_autosync>>
 |Automated sync options for the Argo CD Application resource.
 |
@@ -462,11 +468,11 @@ object({
 
 |no
 
-|[[input_argocd_namespace]] <<input_argocd_namespace,argocd_namespace>>
-|Namespace used by Argo CD where the Application and AppProject resources should be created.
-|`string`
-|n/a
-|yes
+|[[input_helm_values]] <<input_helm_values,helm_values>>
+|Helm values, passed as a list of HCL structures. These values are concatenated with the default ones and then passed to the application's charts.
+|`any`
+|`[]`
+|no
 
 |[[input_dependency_ids]] <<input_dependency_ids,dependency_ids>>
 |IDs of the other modules on which this module depends on.
@@ -474,23 +480,35 @@ object({
 |`{}`
 |no
 
-|[[input_destination_namespace]] <<input_destination_namespace,destination_namespace>>
-|Namespace where the application will be deployed. By default it is the same as the application's name defined by `var.name`. We use a ternary operator to conditionally define the Namespace only if it is defined on the module's instantiation: `namespace = var.destination_namespace == null ? var.name : var.destination_namespace`.
-|`string`
-|`null`
-|no
-
-|[[input_helm_values]] <<input_helm_values,helm_values>>
-|Helm values, passed as a list of HCL structures. These values are concatenated with the default ones and then passed to the application's charts.
-|`any`
-|`[]`
-|no
-
 |[[input_name]] <<input_name,name>>
 |Name to give the to the AppProject and Application.
 |`string`
 |n/a
 |yes
+
+|[[input_source_repo]] <<input_source_repo,source_repo>>
+|Repository where to retrieve the application's chart.
+|`string`
+|n/a
+|yes
+
+|[[input_source_repo_path]] <<input_source_repo_path,source_repo_path>>
+|Path for the application's chart in the source repository.
+|`string`
+|n/a
+|yes
+
+|[[input_source_target_revision]] <<input_source_target_revision,source_target_revision>>
+|Git target revision for the application chart.
+|`string`
+|n/a
+|yes
+
+|[[input_destination_namespace]] <<input_destination_namespace,destination_namespace>>
+|Namespace where the application will be deployed. By default it is the same as the application's name defined by `var.name`. We use a ternary operator to conditionally define the Namespace only if it is defined on the module's instantiation: `namespace = var.destination_namespace == null ? var.name : var.destination_namespace`.
+|`string`
+|`null`
+|no
 
 |[[input_project_cluster_resource_whitelist]] <<input_project_cluster_resource_whitelist,project_cluster_resource_whitelist>>
 |Cluster-scoped resources allowed to be deployed in the Argo CD AppProject created by the module. The *`group`* must be a Kubernetes API group such as `core` or `apps` and the *`kind`* must be a Kubernetes Kinds/Object Schemas such as `Namespace` or `ClusterRole` (note that only resources like these ones are compatible with this setting, the other resources are only Namespace-scoped). You can see the API Groups https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.25/#-strong-api-groups-strong[here].
@@ -575,24 +593,6 @@ object({
 |`string`
 |`null`
 |no
-
-|[[input_source_repo]] <<input_source_repo,source_repo>>
-|Repository where to retrieve the application's chart.
-|`string`
-|n/a
-|yes
-
-|[[input_source_repo_path]] <<input_source_repo_path,source_repo_path>>
-|Path for the application's chart in the source repository.
-|`string`
-|n/a
-|yes
-
-|[[input_source_target_revision]] <<input_source_target_revision,source_target_revision>>
-|Git target revision for the application chart.
-|`string`
-|n/a
-|yes
 
 |===
 
