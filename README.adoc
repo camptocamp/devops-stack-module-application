@@ -201,9 +201,9 @@ The following providers are used by this module:
 
 - [[provider_null]] <<provider_null,null>>
 
-- [[provider_utils]] <<provider_utils,utils>> (>= 1)
-
 - [[provider_argocd]] <<provider_argocd,argocd>> (>= 4)
+
+- [[provider_utils]] <<provider_utils,utils>> (>= 1)
 
 === Resources
 
@@ -220,12 +220,6 @@ The following resources are used by this module:
 === Required Inputs
 
 The following input variables are required:
-
-==== [[input_argocd_namespace]] <<input_argocd_namespace,argocd_namespace>>
-
-Description: Namespace used by Argo CD where the Application and AppProject resources should be created.
-
-Type: `string`
 
 ==== [[input_name]] <<input_name,name>>
 
@@ -255,6 +249,22 @@ Type: `string`
 
 The following input variables are optional (have default values):
 
+==== [[input_argocd_namespace]] <<input_argocd_namespace,argocd_namespace>>
+
+Description: Namespace used by Argo CD where the Application and AppProject resources should be created.
+
+Type: `string`
+
+Default: `"argocd"`
+
+==== [[input_helm_values]] <<input_helm_values,helm_values>>
+
+Description: Helm values, passed as a list of HCL structures. These values are concatenated with the default ones and then passed to the application's charts.
+
+Type: `any`
+
+Default: `[]`
+
 ==== [[input_app_autosync]] <<input_app_autosync,app_autosync>>
 
 Description: Automated sync options for the Argo CD Application resource.
@@ -278,14 +288,6 @@ Default:
   "self_heal": true
 }
 ----
-
-==== [[input_helm_values]] <<input_helm_values,helm_values>>
-
-Description: Helm values, passed as a list of HCL structures. These values are concatenated with the default ones and then passed to the application's charts.
-
-Type: `any`
-
-Default: `[]`
 
 ==== [[input_dependency_ids]] <<input_dependency_ids,dependency_ids>>
 
@@ -412,9 +414,9 @@ Description: ID to pass other modules in order to refer to this module as a depe
 [cols="a,a",options="header,autowidth"]
 |===
 |Name |Version
+|[[provider_null]] <<provider_null,null>> |n/a
 |[[provider_utils]] <<provider_utils,utils>> |>= 1
 |[[provider_argocd]] <<provider_argocd,argocd>> |>= 4
-|[[provider_null]] <<provider_null,null>> |n/a
 |===
 
 = Resources
@@ -439,8 +441,14 @@ Description: ID to pass other modules in order to refer to this module as a depe
 |[[input_argocd_namespace]] <<input_argocd_namespace,argocd_namespace>>
 |Namespace used by Argo CD where the Application and AppProject resources should be created.
 |`string`
-|n/a
-|yes
+|`"argocd"`
+|no
+
+|[[input_helm_values]] <<input_helm_values,helm_values>>
+|Helm values, passed as a list of HCL structures. These values are concatenated with the default ones and then passed to the application's charts.
+|`any`
+|`[]`
+|no
 
 |[[input_app_autosync]] <<input_app_autosync,app_autosync>>
 |Automated sync options for the Argo CD Application resource.
@@ -466,12 +474,6 @@ object({
 }
 ----
 
-|no
-
-|[[input_helm_values]] <<input_helm_values,helm_values>>
-|Helm values, passed as a list of HCL structures. These values are concatenated with the default ones and then passed to the application's charts.
-|`any`
-|`[]`
 |no
 
 |[[input_dependency_ids]] <<input_dependency_ids,dependency_ids>>
