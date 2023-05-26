@@ -5,6 +5,13 @@
 variable "argocd_namespace" {
   description = "Namespace used by Argo CD where the Application and AppProject resources should be created."
   type        = string
+  default     = "argocd"
+}
+
+variable "helm_values" {
+  description = "Helm values, passed as a list of HCL structures. These values are concatenated with the default ones and then passed to the application's charts."
+  type        = any
+  default     = []
 }
 
 variable "app_autosync" {
@@ -19,12 +26,6 @@ variable "app_autosync" {
     prune       = true
     self_heal   = true
   }
-}
-
-variable "helm_values" {
-  description = "Helm values, passed as a list of HCL structures. These values are concatenated with the default ones and then passed to the application's charts."
-  type        = any
-  default     = []
 }
 
 variable "dependency_ids" {
