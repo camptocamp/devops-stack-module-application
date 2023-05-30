@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.3](https://github.com/camptocamp/devops-stack-module-application/compare/v1.2.2...v1.2.3) (2023-05-30)
+
+
+### Bug Fixes
+
+* add missing provider ([511840a](https://github.com/camptocamp/devops-stack-module-application/commit/511840afcccc493c6b772e79bdcde48760040b48))
+
 ## [1.2.2](https://github.com/camptocamp/devops-stack-module-application/compare/v1.2.1...v1.2.2) (2023-03-08)
 
 
