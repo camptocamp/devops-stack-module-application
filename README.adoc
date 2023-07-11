@@ -59,7 +59,7 @@ module "module_name" {
 
   destination_namespace = "namespace"
 
-  project_cluster_resource_whitelist = [ 
+  project_cluster_resource_whitelist = [
     {
       group = "*"
       kind = "Namespace"
@@ -115,7 +115,7 @@ module "module_name" {
       "string2"
     ]
   }]
-  
+
   depends_on = [module.argocd]
 }
 ----
@@ -130,7 +130,7 @@ This module has 2 variables you can use for that, depending on the type of crede
 
 You'll need to pass a string containing a private SSH key in the variable `source_credentials_ssh_key` (you can pass the value however you want, as long as it is a string) and the repository needs to be of the type `git@address.com:owner/repository`.
 
-IMPORTANT: Do not hardcode your SSH private key as the example below! Either create the SSH key using Terraform and pass the output directly or use SOPS to store and pass the key as a secret. 
+IMPORTANT: Do not hardcode your SSH private key as the example below! Either create the SSH key using Terraform and pass the output directly or use SOPS to store and pass the key as a secret.
 
 [source,terraform]
 ----
@@ -191,7 +191,7 @@ As this is an application, it needs to be deployed after the deployment of Argo 
 
 The following requirements are needed by this module:
 
-- [[requirement_argocd]] <<requirement_argocd,argocd>> (>= 4)
+- [[requirement_argocd]] <<requirement_argocd,argocd>> (>= 5)
 
 - [[requirement_null]] <<requirement_null,null>> (>= 3)
 
@@ -201,11 +201,11 @@ The following requirements are needed by this module:
 
 The following providers are used by this module:
 
-- [[provider_utils]] <<provider_utils,utils>> (>= 1)
-
-- [[provider_argocd]] <<provider_argocd,argocd>> (>= 4)
-
 - [[provider_null]] <<provider_null,null>> (>= 3)
+
+- [[provider_argocd]] <<provider_argocd,argocd>> (>= 5)
+
+- [[provider_utils]] <<provider_utils,utils>> (>= 1)
 
 === Resources
 
@@ -396,7 +396,7 @@ The following outputs are exported:
 Description: ID to pass other modules in order to refer to this module as a dependency.
 // END_TF_DOCS
 
-=== Reference in table format 
+=== Reference in table format
 
 .Show tables
 [%collapsible]
@@ -407,7 +407,7 @@ Description: ID to pass other modules in order to refer to this module as a depe
 [cols="a,a",options="header,autowidth"]
 |===
 |Name |Version
-|[[requirement_argocd]] <<requirement_argocd,argocd>> |>= 4
+|[[requirement_argocd]] <<requirement_argocd,argocd>> |>= 5
 |[[requirement_null]] <<requirement_null,null>> |>= 3
 |[[requirement_utils]] <<requirement_utils,utils>> |>= 1
 |===
@@ -418,7 +418,7 @@ Description: ID to pass other modules in order to refer to this module as a depe
 |===
 |Name |Version
 |[[provider_null]] <<provider_null,null>> |>= 3
-|[[provider_argocd]] <<provider_argocd,argocd>> |>= 4
+|[[provider_argocd]] <<provider_argocd,argocd>> |>= 5
 |[[provider_utils]] <<provider_utils,utils>> |>= 1
 |===
 
