@@ -97,13 +97,9 @@ variable "source_credentials_https" {
   type = object({
     username       = string
     password       = string
-    https_insecure = bool
+    https_insecure = optional(bool, false)
   })
-  default = {
-    username       = null
-    password       = null
-    https_insecure = false
-  }
+  default = null
 }
 
 variable "source_credentials_ssh_key" {
