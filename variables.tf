@@ -58,6 +58,18 @@ variable "source_target_revision" {
   type        = string
 }
 
+variable "project_dest_cluster_name" {
+  description = "Allowed destination cluster *name* in the AppProject."
+  type        = string
+  default     = "in-cluster"
+}
+
+variable "project_dest_cluster_address" {
+  description = "Allowed destination cluster *address* in the AppProject. If you define this variable, any value passed in the `project_dest_cluster_name` variable is ignored."
+  type        = string
+  default     = null
+}
+
 variable "destination_namespace" {
   description = "Namespace where the application will be deployed. By default it is the same as the application's name defined by `var.name`. We use a ternary operator to conditionally define the Namespace only if it is defined on the module's instantiation: `namespace = var.destination_namespace == null ? var.name : var.destination_namespace`."
   type        = string

@@ -19,6 +19,7 @@ resource "argocd_repository" "private_ssh_repo" {
   ssh_private_key = var.source_credentials_ssh_key
 }
 
+# TODO Maybe add a way to no use this project and use a user-defined one instead
 resource "argocd_project" "this" {
   metadata {
     name      = var.name
@@ -29,8 +30,11 @@ resource "argocd_project" "this" {
     description  = "${var.name} application project"
     source_repos = [var.source_repo] # This is a map because the definition of the project could accept multiple allowed repositories
 
+    # The destination block does not support having both `name` and `server` defined at the same time. For that reason,
+    # we added the ternary operator below to test if the user provided a `project_dest_cluster_address` variable.
     destination {
-      name      = "in-cluster"
+      name      = var.project_dest_cluster_address == null ? var.project_dest_cluster_name : null
+      server    = var.project_dest_cluster_address == null ? null : var.project_dest_cluster_address
       namespace = var.destination_namespace == null ? var.name : var.destination_namespace
     }
 
@@ -85,8 +89,11 @@ resource "argocd_application" "this" {
       }
     }
 
+    # The destination block does not support having both `name` and `server` defined at the same time. For that reason,
+    # we added the ternary operator below to test if the user provided a `project_dest_cluster_address` variable.
     destination {
-      name      = "in-cluster"
+      name      = var.project_dest_cluster_address == null ? var.project_dest_cluster_name : null
+      server    = var.project_dest_cluster_address == null ? null : var.project_dest_cluster_address
       namespace = var.destination_namespace == null ? var.name : var.destination_namespace
     }
 
