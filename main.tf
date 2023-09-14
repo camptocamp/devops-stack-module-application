@@ -19,7 +19,6 @@ resource "argocd_repository" "private_ssh_repo" {
   ssh_private_key = var.source_credentials_ssh_key
 }
 
-# TODO Maybe add a way to no use this project and use a user-defined one instead
 resource "argocd_project" "this" {
   metadata {
     name      = var.name
