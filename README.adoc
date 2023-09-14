@@ -211,11 +211,11 @@ The following requirements are needed by this module:
 
 The following providers are used by this module:
 
-- [[provider_null]] <<provider_null,null>> (>= 3)
+- [[provider_utils]] <<provider_utils,utils>> (>= 1)
 
 - [[provider_argocd]] <<provider_argocd,argocd>> (>= 5)
 
-- [[provider_utils]] <<provider_utils,utils>> (>= 1)
+- [[provider_null]] <<provider_null,null>> (>= 3)
 
 === Resources
 
@@ -309,6 +309,22 @@ Type: `map(string)`
 
 Default: `{}`
 
+==== [[input_project_dest_cluster_name]] <<input_project_dest_cluster_name,project_dest_cluster_name>>
+
+Description: Allowed destination cluster *name* in the AppProject.
+
+Type: `string`
+
+Default: `"in-cluster"`
+
+==== [[input_project_dest_cluster_address]] <<input_project_dest_cluster_address,project_dest_cluster_address>>
+
+Description: Allowed destination cluster *address* in the AppProject. If you define this variable, any value passed in the `project_dest_cluster_name` variable is ignored.
+
+Type: `string`
+
+Default: `null`
+
 ==== [[input_destination_namespace]] <<input_destination_namespace,destination_namespace>>
 
 Description: Namespace where the application will be deployed. By default it is the same as the application's name defined by `var.name`. We use a ternary operator to conditionally define the Namespace only if it is defined on the module's instantiation: `namespace = var.destination_namespace == null ? var.name : var.destination_namespace`.
@@ -375,19 +391,11 @@ Type:
 object({
     username       = string
     password       = string
-    https_insecure = bool
+    https_insecure = optional(bool, false)
   })
 ----
 
-Default:
-[source,json]
-----
-{
-  "https_insecure": false,
-  "password": null,
-  "username": null
-}
-----
+Default: `null`
 
 ==== [[input_source_credentials_ssh_key]] <<input_source_credentials_ssh_key,source_credentials_ssh_key>>
 
@@ -427,9 +435,9 @@ Description: ID to pass other modules in order to refer to this module as a depe
 [cols="a,a",options="header,autowidth"]
 |===
 |Name |Version
-|[[provider_utils]] <<provider_utils,utils>> |>= 1
-|[[provider_argocd]] <<provider_argocd,argocd>> |>= 5
 |[[provider_null]] <<provider_null,null>> |>= 3
+|[[provider_argocd]] <<provider_argocd,argocd>> |>= 5
+|[[provider_utils]] <<provider_utils,utils>> |>= 1
 |===
 
 = Resources
@@ -519,6 +527,18 @@ object({
 |n/a
 |yes
 
+|[[input_project_dest_cluster_name]] <<input_project_dest_cluster_name,project_dest_cluster_name>>
+|Allowed destination cluster *name* in the AppProject.
+|`string`
+|`"in-cluster"`
+|no
+
+|[[input_project_dest_cluster_address]] <<input_project_dest_cluster_address,project_dest_cluster_address>>
+|Allowed destination cluster *address* in the AppProject. If you define this variable, any value passed in the `project_dest_cluster_name` variable is ignored.
+|`string`
+|`null`
+|no
+
 |[[input_destination_namespace]] <<input_destination_namespace,destination_namespace>>
 |Namespace where the application will be deployed. By default it is the same as the application's name defined by `var.name`. We use a ternary operator to conditionally define the Namespace only if it is defined on the module's instantiation: `namespace = var.destination_namespace == null ? var.name : var.destination_namespace`.
 |`string`
@@ -586,21 +606,11 @@ list(object({
 object({
     username       = string
     password       = string
-    https_insecure = bool
+    https_insecure = optional(bool, false)
   })
 ----
 
-|
-
-[source]
-----
-{
-  "https_insecure": false,
-  "password": null,
-  "username": null
-}
-----
-
+|`null`
 |no
 
 |[[input_source_credentials_ssh_key]] <<input_source_credentials_ssh_key,source_credentials_ssh_key>>
