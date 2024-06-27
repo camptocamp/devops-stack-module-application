@@ -130,13 +130,13 @@ module "module_name" {
 
 When your charts are stored inside a private repository, Argo CD needs to have the credentials necessary to have at least read access to the contents of the repository.
 
-This module has 2 variables you can use for that, depending on the type of credentials you want to configure, either HTTPS or SSH.
+This module has 2 variables you can use for that, depending on the type of connection you want to use (HTTPS or SSH).
 
 ==== SSH
 
 You'll need to pass a string containing a private SSH key in the variable `source_credentials_ssh_key` (you can pass the value however you want, as long as it is a string) and the repository needs to be of the type `git@address.com:owner/repository`.
 
-IMPORTANT: Do not hardcode your SSH private key like in the example below! Either create the SSH key using Terraform and pass the output directly or use SOPS to store and pass the key as a secret.
+IMPORTANT: Do not hardcode your SSH private key like in the example below! Either create the SSH key using Terraform and pass the output directly or get the key from a secret store. 
 
 [source,terraform]
 ----
@@ -160,9 +160,9 @@ module "module_name" {
 
 ==== HTTPS
 
-You'll need to pass the username and password inside the variable `source_credentials_https` and the repository needs to be of the type `https://address.com/owner/repository`.
+You'll need to pass the username and password inside the variable `source_credentials_https` and the repository URL needs to be of the type `https://address.com/owner/repository`.
 
-IMPORTANT: Do not hardcode your password like in the example below! It is recommended to pass the value as secret, either using SOPS or another provider. Another best practice would be to use a token you created on Github.com (or another provider) that has the least amount of access needed (in this use-case, Argo CD only needs read access).
+IMPORTANT: Do not hardcode your password like in the example below! It is recommended to pass the value as secret, either using SoPS or another provider. Another best practice would be to use a token you created on GitHub.com (or another Git provider) that has the least amount of access possible (in these use-cases, Argo CD only needs *read access*).
 
 [source,terraform]
 ----
@@ -192,7 +192,7 @@ module "module_name" {
 
 === Dependencies
 
-==== `module.argocd`
+==== `module.argocd.id`
 
 As this is an application, it needs to be deployed after the deployment of Argo CD and consequently this module needs to have this explicit dependency.
 
@@ -211,11 +211,11 @@ The following requirements are needed by this module:
 
 The following providers are used by this module:
 
+- [[provider_null]] <<provider_null,null>> (>= 3)
+
 - [[provider_utils]] <<provider_utils,utils>> (>= 1)
 
 - [[provider_argocd]] <<provider_argocd,argocd>> (>= 5)
-
-- [[provider_null]] <<provider_null,null>> (>= 3)
 
 === Resources
 
@@ -427,9 +427,9 @@ Description: ID to pass other modules in order to refer to this module as a depe
 [cols="a,a",options="header,autowidth"]
 |===
 |Name |Version
-|[[provider_null]] <<provider_null,null>> |>= 3
-|[[provider_argocd]] <<provider_argocd,argocd>> |>= 5
 |[[provider_utils]] <<provider_utils,utils>> |>= 1
+|[[provider_argocd]] <<provider_argocd,argocd>> |>= 5
+|[[provider_null]] <<provider_null,null>> |>= 3
 |===
 
 = Resources
