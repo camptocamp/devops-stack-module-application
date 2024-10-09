@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.0.0](https://github.com/camptocamp/devops-stack-module-application/compare/v3.0.0...v4.0.0) (2024-10-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* point the Argo CD provider to the new repository ([#41](https://github.com/camptocamp/devops-stack-module-application/issues/41))
+
+### Features
+
+* point the Argo CD provider to the new repository ([#41](https://github.com/camptocamp/devops-stack-module-application/issues/41)) ([85a2629](https://github.com/camptocamp/devops-stack-module-application/commit/85a2629429fca91af07406f032d02b1b26238750))
+
 ## [3.0.0](https://github.com/camptocamp/devops-stack-module-application/compare/v2.1.0...v3.0.0) (2024-01-19)
 
 
