@@ -82,6 +82,7 @@ resource "argocd_application" "this" {
     source {
       repo_url        = var.source_repo
       path            = var.source_repo_path
+      chart           = var.source_chart
       target_revision = var.source_target_revision
       helm {
         values = data.utils_deep_merge_yaml.values.output
