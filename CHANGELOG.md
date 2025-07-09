@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.1.0](https://github.com/camptocamp/devops-stack-module-application/compare/v4.0.0...v4.1.0) (2025-07-09)
+
+
+### Features
+
+* add a way to create Argo CD applications from Helm repositories ([#43](https://github.com/camptocamp/devops-stack-module-application/issues/43)) ([08bdd84](https://github.com/camptocamp/devops-stack-module-application/commit/08bdd84463634a49b7f21c68dfca34ad55ad5a50))
+
 ## [4.0.0](https://github.com/camptocamp/devops-stack-module-application/compare/v3.0.0...v4.0.0) (2024-10-09)
 
 
