@@ -43,8 +43,21 @@ variable "source_repo" {
 }
 
 variable "source_repo_path" {
-  description = "Path for the application's chart in the source repository."
+  description = "Path for the application's chart in the source repository. Use this if the `source_repo` is a Git repository. If you are using a Helm repository, use `source_chart` instead."
   type        = string
+  default     = null
+
+  validation {
+    condition     = (var.source_repo_path != null) != (var.source_chart != null)
+    error_message = "You must provide either 'source_repo_path' or 'source_chart' variable (not both, not neither)."
+  }
+}
+
+variable "source_chart" {
+  description = "Name of the chart to use in the source repository. Use this if the `source_repo` is a Helm repository. If you are using a Git repository, use `source_repo_path` instead."
+  type        = string
+  default     = null
+
 }
 
 variable "source_target_revision" {

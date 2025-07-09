@@ -211,11 +211,11 @@ The following requirements are needed by this module:
 
 The following providers are used by this module:
 
+- [[provider_null]] <<provider_null,null>> (>= 3)
+
 - [[provider_argocd]] <<provider_argocd,argocd>> (>= 6)
 
 - [[provider_utils]] <<provider_utils,utils>> (>= 1)
-
-- [[provider_null]] <<provider_null,null>> (>= 3)
 
 === Resources
 
@@ -242,12 +242,6 @@ Type: `string`
 ==== [[input_source_repo]] <<input_source_repo,source_repo>>
 
 Description: Repository where to retrieve the application's chart.
-
-Type: `string`
-
-==== [[input_source_repo_path]] <<input_source_repo_path,source_repo_path>>
-
-Description: Path for the application's chart in the source repository.
 
 Type: `string`
 
@@ -300,6 +294,22 @@ Description: IDs of the other modules on which this module depends on.
 Type: `map(string)`
 
 Default: `{}`
+
+==== [[input_source_repo_path]] <<input_source_repo_path,source_repo_path>>
+
+Description: Path for the application's chart in the source repository. Use this if the `source_repo` is a Git repository. If you are using a Helm repository, use `source_chart` instead.
+
+Type: `string`
+
+Default: `null`
+
+==== [[input_source_chart]] <<input_source_chart,source_chart>>
+
+Description: Name of the chart to use in the source repository. Use this if the `source_repo` is a Helm repository. If you are using a Git repository, use `source_repo_path` instead.
+
+Type: `string`
+
+Default: `null`
 
 ==== [[input_project_dest_cluster_name]] <<input_project_dest_cluster_name,project_dest_cluster_name>>
 
@@ -502,10 +512,16 @@ object({
 |yes
 
 |[[input_source_repo_path]] <<input_source_repo_path,source_repo_path>>
-|Path for the application's chart in the source repository.
+|Path for the application's chart in the source repository. Use this if the `source_repo` is a Git repository. If you are using a Helm repository, use `source_chart` instead.
 |`string`
-|n/a
-|yes
+|`null`
+|no
+
+|[[input_source_chart]] <<input_source_chart,source_chart>>
+|Name of the chart to use in the source repository. Use this if the `source_repo` is a Helm repository. If you are using a Git repository, use `source_repo_path` instead.
+|`string`
+|`null`
+|no
 
 |[[input_source_target_revision]] <<input_source_target_revision,source_target_revision>>
 |Git target revision for the application chart.
